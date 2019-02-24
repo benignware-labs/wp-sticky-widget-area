@@ -3,6 +3,14 @@
 Add a search-form to menus
 
 
+## Filters
+
+#### sticky_widget_area_options
+
+Filter options passed to the js implementation.
+See [sticky-sidebar](https://www.npmjs.com/package/sticky-sidebar) for more information.
+
+
 ## Development
 
 Download [Docker CE](https://www.docker.com/get-docker) for your OS.
