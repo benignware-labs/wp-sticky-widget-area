@@ -1,6 +1,6 @@
-# wp-menu-item-search-form
+# wp-sticky-widget-area
 
-Add a search-form to menus
+Make widget-areas sticky
 
 
 ## Filters
