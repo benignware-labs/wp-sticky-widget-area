@@ -1,0 +1,22 @@
+*[data-sticky-widget-area-role="container"] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+*[data-sticky-widget-area-role="content"] {
+  /*flex-grow: 1;*/
+}
+
+*[data-sticky-widget-area-role="sidebar"] {
+  will-change: min-height;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+*[data-sticky-widget-area-role="sidebar-inner"] {
+    transform: translate(0, 0); /* For browsers don't support translate3d. */
+    transform: translate3d(0, 0, 0);
+    will-change: position, transform;
+}
