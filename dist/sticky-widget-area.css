@@ -6,12 +6,14 @@
 }
 
 *[data-sticky-widget-area-role="content"] {
-  /*flex-grow: 1;*/
+  flex-grow: 0;
+  flex-shrink: 1;
 }
 
 *[data-sticky-widget-area-role="sidebar"] {
+  position: relative;
   will-change: min-height;
-  flex-grow: 1;
+  flex-grow: 0;
   flex-shrink: 0;
 }
 

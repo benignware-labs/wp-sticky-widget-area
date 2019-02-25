@@ -5,6 +5,12 @@ let sidebar;
 
 window.ResizeSensor = ResizeSensor;
 
+const updateSticky = () => {
+  if (sidebar) {
+    sidebar.updateSticky();
+  }
+}
+
 const readyHandler = (event) => {
   if (sidebar) {
     sidebar.destroy();
@@ -16,21 +22,38 @@ const readyHandler = (event) => {
   const sidebarInnerElement = document.querySelector('*[data-sticky-widget-area-role="sidebar-inner"]');
 
   if (sidebarElement && containerElement) {
+    const adminBar = document.querySelector('#wpadminbar');
+
     const optionsEncoded = sidebarElement.getAttribute('data-sticky-widget-area-options');
-    const optionsDecoded = JSON.parse(decodeURIComponent(optionsEncoded));
+    const optionsDecoded = { ...JSON.parse(decodeURIComponent(optionsEncoded)) };
+
+    let topSpacing = 0;
+
+    if (adminBar) {
+      topSpacing+= adminBar.getBoundingClientRect().height;
+    }
+
+    optionsDecoded.topSpacing = 72;
+
+    topSpacing+= optionsDecoded.topSpacing ? optionsDecoded.topSpacing : 0;
+
     const options = {
-      //resizeSensor: true,
+      resizeSensor: true,
       topSpacing: 0,
       bottomSpacing: 0,
       containerSelector: '*[data-sticky-widget-area-role="container"]',
       innerWrapperSelector: '*[data-sticky-widget-area-role="sidebar-inner"]',
-      minWidth: 992, // TODO: Get bootstrap breakpoints dynamically
-      ...optionsDecoded
+      minWidth: 768,
+      ...optionsDecoded,
+      topSpacing: topSpacing
     };
 
     sidebar = new StickySidebar(sidebarElement, options);
+
+    window.requestAnimationFrame(updateSticky);
   }
 }
 
 document.addEventListener('turbolinks:load', readyHandler);
 document.addEventListener('DOMContentLoaded', readyHandler);
+window.addEventListener('resize', updateSticky);

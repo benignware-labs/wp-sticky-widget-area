@@ -42,6 +42,7 @@ function sticky_widget_area_filter_output($output) {
 
   $options = apply_filters('sticky_widget_area_options', array(
     // Default options
+    'test' => 12345
   ));
 
   // Parse DOM

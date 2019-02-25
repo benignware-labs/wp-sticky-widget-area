@@ -1,6 +1,6 @@
 {
   "name": "wp-sticky-widget-area",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Make widget-areas sticky",
   "main": "dist/sticky-widget-area.js",
   "scripts": {
