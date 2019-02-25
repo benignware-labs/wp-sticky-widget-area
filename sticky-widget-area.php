@@ -10,6 +10,19 @@
  License: MIT
 */
 
+function wp_sticky_widget_area_is_admin() {
+    //Ajax request are always identified as administrative interface page
+    //so let's check if we are calling the data for the frontend or backend
+    if (wp_doing_ajax()) {
+        $adminUrl = get_admin_url();
+        //If the referer is an admin url we are requesting the data for the backend
+        return (substr($_SERVER['HTTP_REFERER'], 0, strlen($adminUrl)) === $adminUrl);
+    }
+
+    //No ajax request just use the normal function
+    return is_admin();
+}
+
 // Enqueue plugin scripts
 add_action('wp_enqueue_scripts', function() {
   wp_enqueue_script( 'sticky-widget-area', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
@@ -17,13 +30,13 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 add_action( 'get_sidebar', function($widget_id = null) {
-  if (!is_admin()) {
+  if (!wp_sticky_widget_area_is_admin()) {
     echo "<span data-sticky-widget-area-entry></span>";
   }
 });
 
 function sticky_widget_area_filter_output($output) {
-  if (is_admin()) {
+  if (wp_sticky_widget_area_is_admin()) {
     return $output;
   }
 
@@ -37,6 +50,10 @@ function sticky_widget_area_filter_output($output) {
 
   $doc_xpath = new DOMXpath($doc);
   $elements = $doc_xpath->query('//*[@data-sticky-widget-area-entry]');
+
+  if ($elements->length === 0) {
+    return $output;
+  }
 
   foreach ($elements as $element) {
     $next_element = null;
@@ -94,23 +111,21 @@ function sticky_widget_area_filter_output($output) {
   }
 
   $output = $doc->saveHTML();
+  $output = str_replace('<?xml encoding="utf-8" ?>', '', $output);
 
   return $output;
 }
 
-
 add_action('after_setup_theme', function() {
-  if (is_admin()) {
-    return;
+  if (!wp_sticky_widget_area_is_admin()) {
+    // Start observing buffer
+    ob_start("sticky_widget_area_filter_output");
   }
-  // Start observing buffer
-  ob_start("sticky_widget_area_filter_output");
 });
 
 add_action('shutdown', function() {
-  if (is_admin()) {
-    return;
+  if (!wp_sticky_widget_area_is_admin()) {
+    // Flush buffer
+    ob_end_flush();
   }
-  // Flush buffer
-  ob_end_flush();
 });
