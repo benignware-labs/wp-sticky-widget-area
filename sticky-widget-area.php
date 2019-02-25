@@ -17,10 +17,16 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 add_action( 'get_sidebar', function($widget_id = null) {
-  echo "<span data-sticky-widget-area-entry></span>";
+  if (!is_admin()) {
+    echo "<span data-sticky-widget-area-entry></span>";
+  }
 });
 
 function sticky_widget_area_filter_output($output) {
+  if (is_admin()) {
+    return $output;
+  }
+
   $options = apply_filters('sticky_widget_area_options', array(
     // Default options
   ));
@@ -94,11 +100,17 @@ function sticky_widget_area_filter_output($output) {
 
 
 add_action('after_setup_theme', function() {
+  if (is_admin()) {
+    return;
+  }
   // Start observing buffer
   ob_start("sticky_widget_area_filter_output");
 });
 
 add_action('shutdown', function() {
+  if (is_admin()) {
+    return;
+  }
   // Flush buffer
   ob_end_flush();
 });
