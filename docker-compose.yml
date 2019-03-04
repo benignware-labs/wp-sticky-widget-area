@@ -26,7 +26,9 @@ services:
     volumes:
     - wordpress:/var/www/html
     - .:/var/www/html/wp-content/plugins/sticky-widget-area
+    - ./test/fixtures/themes/sticky-widget-area:/var/www/html/wp-content/themes/sticky-widget-area
     working_dir: /var/www/html
+
   wp-cli:
     image: wordpress:cli
     user: '33:33'

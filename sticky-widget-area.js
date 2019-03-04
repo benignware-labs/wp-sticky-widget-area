@@ -8,6 +8,9 @@ window.ResizeSensor = ResizeSensor;
 const updateSticky = () => {
   if (sidebar) {
     sidebar.updateSticky();
+    window.requestAnimationFrame(() => {
+      sidebar.updateSticky();
+    });
   }
 }
 
@@ -32,8 +35,6 @@ const readyHandler = (event) => {
     if (adminBar) {
       topSpacing+= adminBar.getBoundingClientRect().height;
     }
-
-    optionsDecoded.topSpacing = 72;
 
     topSpacing+= optionsDecoded.topSpacing ? optionsDecoded.topSpacing : 0;
 

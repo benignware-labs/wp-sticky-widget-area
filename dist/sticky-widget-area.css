@@ -1,8 +1,5 @@
 *[data-sticky-widget-area-role="container"] {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 *[data-sticky-widget-area-role="content"] {
