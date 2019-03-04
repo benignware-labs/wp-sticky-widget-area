@@ -4,7 +4,7 @@
  Plugin Name: Sticky Widget Area
  Plugin URI: http://github.com/benignware/wp-sticky-widget-area
  Description: Make widget-areas sticky
- Version: 0.0.7
+ Version: 0.0.8
  Author: Rafael Nowrotek, Benignware
  Author URI: http://benignware.com
  License: MIT
@@ -25,8 +25,8 @@ function wp_sticky_widget_area_is_admin() {
 
 // Enqueue plugin scripts
 add_action('wp_enqueue_scripts', function() {
-  wp_enqueue_script( 'sticky-widget-area', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
-  wp_enqueue_style( 'sticky-widget-area', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.css' );
+  wp_enqueue_script( 'sticky-widget-area-js', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
+  wp_enqueue_style( 'sticky-widget-area-style', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.css' );
 });
 
 add_action( 'get_sidebar', function($widget_id = null) {

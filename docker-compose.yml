@@ -27,6 +27,7 @@ services:
     - wordpress:/var/www/html
     - .:/var/www/html/wp-content/plugins/sticky-widget-area
     - ./test/fixtures/themes/sticky-widget-area:/var/www/html/wp-content/themes/sticky-widget-area
+    - ./test/fixtures/themes/kicks-app:/var/www/html/wp-content/themes/kicks-app
     working_dir: /var/www/html
 
   wp-cli:
