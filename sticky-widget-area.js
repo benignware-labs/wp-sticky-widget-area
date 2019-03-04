@@ -49,6 +49,8 @@ const readyHandler = (event) => {
       topSpacing: topSpacing
     };
 
+    console.log('sidebar options', options);
+
     sidebar = new StickySidebar(sidebarElement, options);
 
     window.requestAnimationFrame(updateSticky);

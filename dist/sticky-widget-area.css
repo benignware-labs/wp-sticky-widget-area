@@ -5,6 +5,7 @@
 *[data-sticky-widget-area-role="content"] {
   flex-grow: 0;
   flex-shrink: 1;
+  margin-right: auto;
 }
 
 *[data-sticky-widget-area-role="sidebar"] {

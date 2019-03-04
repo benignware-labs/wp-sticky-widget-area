@@ -36,14 +36,8 @@ add_filter( 'alphabetic_paginate_links', function($link = '', $term = null) {
 
 
 add_filter('sticky_widget_area_options', function($options = array()) {
-    //print_r($options);
-    echo 'call';
 	$options = array_merge(array(
 		'topSpacing' => 72
 	), $options);
-
-
-  //print_r($options);
-
 	return $options;
 });
