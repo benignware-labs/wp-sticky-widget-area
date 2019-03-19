@@ -17,4 +17,8 @@ wp core install \
 wp option update permalink_structure "/%year%/%monthnum%/%postname%/" --skip-themes --skip-plugins
 
 # Activate plugin.
+wp plugin activate wordpress-importer
 wp plugin activate sticky-widget-area
+
+# Import demo content
+# wp import vendor/lib/wptrt/theme-unit-test --authors=skip

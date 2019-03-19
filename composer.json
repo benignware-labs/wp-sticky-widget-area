@@ -1,6 +1,6 @@
 {
   "name": "benignware/wp-sticky-widget-area",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "wordpress-plugin",
   "license": "MIT",
   "description": "Make widget-areas sticky",
@@ -22,6 +22,9 @@
     "vendor-dir": "vendor/lib"
   },
   "repositories": [{
+    "type": "composer",
+    "url": "https://wpackagist.org"
+  }, {
     "type":"package",
     "package": {
       "name": "wptrt/theme-unit-test",
@@ -35,13 +38,13 @@
   }, {
     "type": "package",
     "package": {
-      "name": "benignware/kicks-app",
-      "version": "master",
-      "type": "wordpress-theme",
+      "name": "benignware/neverending-posts",
+      "version": "v0.0.1",
+      "type": "wordpress-plugin",
       "source": {
         "type": "git",
-        "url": "https://github.com/benignware-labs/wp-kicks-app.git",
-        "reference": "master"
+        "url": "https://github.com/benignware-labs/wp-neverending-posts.git",
+        "reference": "v0.0.1"
       }
     }
   }],
@@ -51,7 +54,8 @@
   },
   "require-dev": {
     "wptrt/theme-unit-test": "dev-master",
-    "benignware/kicks-app": "dev-master"
+    "wpackagist-plugin/wordpress-importer": ">=0.6.4",
+    "benignware/neverending-posts": "v0.0.1"
   },
   "extra": {
     "webroot-dir": "wp-core",

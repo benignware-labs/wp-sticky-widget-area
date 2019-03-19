@@ -1,0 +1,13 @@
+/*
+Theme Name: Sticky Widget Area Theme
+Description: Demo theme for the sticky-widget-area wordpress plugin
+Author: Rafael Nowrotek
+Author URI: http://benignware.com
+Template: twentyseventeen
+Version: 0.0.9
+Tags:
+*/
+
+.site-footer {
+  min-height: 400px;
+}
