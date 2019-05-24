@@ -1,6 +1,6 @@
 {
   "name": "wp-sticky-widget-area",
-  "version": "0.0.7",
+  "version": "0.0.10",
   "description": "Make widget-areas sticky",
   "main": "dist/sticky-widget-area.js",
   "scripts": {
@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "css-element-queries": "^1.1.1",
-    "shallow-diff": "0.0.5",
     "sticky-sidebar": "^3.3.1"
   },
   "devDependencies": {

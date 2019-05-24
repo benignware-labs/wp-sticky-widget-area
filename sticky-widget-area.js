@@ -1,6 +1,7 @@
 import { ResizeSensor } from 'css-element-queries';
 import StickySidebar from 'sticky-sidebar';
-import shallowDiff from 'shallow-diff';
+
+const options = JSON.parse(StickyWidgetArea.options);
 
 let sidebar;
 let observer;
@@ -12,19 +13,18 @@ let innerWrapperElement;
 window.ResizeSensor = ResizeSensor;
 
 const initSticky = () => {
-  const containerSelector = `*[data-sticky-widget-area-role='container']`;
-  const sidebarSelector = `*[data-sticky-widget-area-role='sidebar']`;
-  const innerWrapperSelector = `*[data-sticky-widget-area-role='sidebar-inner']`;
+  const {
+    selector = `*[data-sticky-widget-area-role='sidebar']`,
+    containerSelector = `*[data-sticky-widget-area-role='container']`,
+    innerWrapperSelector = `*[data-sticky-widget-area-role='sidebar-inner']`
+  } = options;
 
-  sidebarElement = document.querySelector(sidebarSelector);
+  sidebarElement = document.querySelector(selector);
   containerElement = document.querySelector(containerSelector);
   innerWrapperElement = document.querySelector(innerWrapperSelector);
 
-  if (sidebarElement && containerElement) {
+  if (sidebarElement) {
     const adminBar = document.querySelector('#wpadminbar');
-
-    const optionsEncoded = sidebarElement.getAttribute('data-sticky-widget-area-options');
-    const optionsDecoded = { ...JSON.parse(decodeURIComponent(optionsEncoded)) };
 
     let topSpacing = 0;
 
@@ -32,21 +32,19 @@ const initSticky = () => {
       topSpacing+= adminBar.getBoundingClientRect().height;
     }
 
-    topSpacing+= optionsDecoded.topSpacing ? optionsDecoded.topSpacing : 0;
+    topSpacing+= options.topSpacing ? options.topSpacing : 0;
 
-    const options = {
+    sidebar = new StickySidebar(sidebarElement, {
       resizeSensor: false,
       topSpacing: 0,
       bottomSpacing: 0,
       containerSelector,
       innerWrapperSelector,
       minWidth: 768,
-      ...optionsDecoded,
+      ...options,
       topSpacing: topSpacing,
       // resizeSensor: false,
-    };
-
-    sidebar = new StickySidebar(sidebarElement, options);
+    });
 
     window.requestAnimationFrame(updateSticky);
 
@@ -71,7 +69,10 @@ const initSticky = () => {
         childList: true,
         subtree: true,
         characterData: true,
-        attributeFilter: [ 'style', 'class' ]
+        attributeFilter: [
+          'style',
+          'class'
+        ]
       });
     }
   }

@@ -1,7 +1,7 @@
 *[data-sticky-widget-area-role="container"] {
   display: flex;
-  /* align-items: stretch; */
   align-items: flex-start;
+  flex-wrap: nowrap;
 }
 
 *[data-sticky-widget-area-role="content"] {

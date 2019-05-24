@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d1b0ae15b5dc464b60035eaa0f28f2",
+    "content-hash": "292e8b198ad1c5e4acfe583a1ddd7db1",
     "packages": [
         {
             "name": "composer/installers",
@@ -129,6 +129,16 @@
     ],
     "packages-dev": [
         {
+            "name": "benignware/bootstrap-hooks",
+            "version": "v0.1.0-beta.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benignware/wp-bootstrap-hooks.git",
+                "reference": "v0.1.0-beta.20"
+            },
+            "type": "wordpress-muplugin"
+        },
+        {
             "name": "benignware/neverending-posts",
             "version": "v0.0.1",
             "source": {
@@ -137,6 +147,48 @@
                 "reference": "v0.0.1"
             },
             "type": "wordpress-plugin"
+        },
+        {
+            "name": "wemakecustom/wp-mu-loader",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wemakecustom/wp-mu-loader.git",
+                "reference": "36cb5b0939da619dc07392529fa0253d4017bde4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wemakecustom/wp-mu-loader/zipball/36cb5b0939da619dc07392529fa0253d4017bde4",
+                "reference": "36cb5b0939da619dc07392529fa0253d4017bde4",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "suggest": {
+                "wemakecustom/wp-mu-composer": "Composer includer"
+            },
+            "type": "wordpress-muplugin",
+            "extra": {
+                "installer-name": "mu-loader"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "WeMakeCustom",
+                    "email": "info@wemakecustom.com",
+                    "homepage": "http://www.wemakecustom.com"
+                }
+            ],
+            "description": "Enables the loading of Wordpress plugins sitting in mu-plugins (as folders)",
+            "keywords": [
+                "plugins",
+                "wordpress"
+            ],
+            "time": "2015-01-21T14:32:26+00:00"
         },
         {
             "name": "wpackagist-plugin/wordpress-importer",
@@ -148,9 +200,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.6.4.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.6.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -173,7 +223,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "wptrt/theme-unit-test": 20
+        "wptrt/theme-unit-test": 20,
+        "benignware/bootstrap-hooks": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,

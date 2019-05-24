@@ -1,6 +1,6 @@
 {
   "name": "benignware/wp-sticky-widget-area",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "wordpress-plugin",
   "license": "MIT",
   "description": "Make widget-areas sticky",
@@ -38,6 +38,18 @@
   }, {
     "type": "package",
     "package": {
+      "name": "benignware/bootstrap-hooks",
+      "version": "v0.1.0-beta.20",
+      "type": "wordpress-muplugin",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/benignware/wp-bootstrap-hooks.git",
+        "reference": "v0.1.0-beta.20"
+      }
+    }
+  }, {
+    "type": "package",
+    "package": {
       "name": "benignware/neverending-posts",
       "version": "v0.0.1",
       "type": "wordpress-plugin",
@@ -54,8 +66,15 @@
   },
   "require-dev": {
     "wptrt/theme-unit-test": "dev-master",
+    "wemakecustom/wp-mu-loader": ">=1.0.2",
     "wpackagist-plugin/wordpress-importer": ">=0.6.4",
+    "benignware/bootstrap-hooks": "v0.1.0-beta.20",
     "benignware/neverending-posts": "v0.0.1"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "php -r \"copy('wp-content/mu-plugins/mu-loader/mu-require.php', 'wp-content/mu-plugins/mu-require.php');\""
+    ]
   },
   "extra": {
     "webroot-dir": "wp-core",

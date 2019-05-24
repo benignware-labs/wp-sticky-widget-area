@@ -10,22 +10,32 @@
  License: MIT
 */
 
-function wp_sticky_widget_area_is_admin() {
-    //Ajax request are always identified as administrative interface page
-    //so let's check if we are calling the data for the frontend or backend
-    if (wp_doing_ajax()) {
-        $adminUrl = get_admin_url();
-        //If the referer is an admin url we are requesting the data for the backend
-        return (substr($_SERVER['HTTP_REFERER'], 0, strlen($adminUrl)) === $adminUrl);
-    }
+require_once 'lib/functions.php';
 
-    //No ajax request just use the normal function
-    return is_admin();
+function wp_sticky_widget_area_is_admin() {
+  //Ajax request are always identified as administrative interface page
+  //so let's check if we are calling the data for the frontend or backend
+  if (wp_doing_ajax()) {
+    $adminUrl = get_admin_url();
+    //If the referer is an admin url we are requesting the data for the backend
+    return (substr($_SERVER['HTTP_REFERER'], 0, strlen($adminUrl)) === $adminUrl);
+  }
+
+  //No ajax request just use the normal function
+  return is_admin();
 }
 
 // Enqueue plugin scripts
 add_action('wp_enqueue_scripts', function() {
-  wp_enqueue_script( 'sticky-widget-area-js', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
+  wp_register_script( 'sticky-widget-area-js', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
+  wp_localize_script( 'sticky-widget-area-js', 'StickyWidgetArea',
+    array(
+      'options' => json_encode(get_sticky_widget_area_options()),
+    )
+  );
+
+  wp_enqueue_script( 'sticky-widget-area-js' );
+  // wp_enqueue_script( 'sticky-widget-area-js', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
   wp_enqueue_style( 'sticky-widget-area-style', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.css' );
 });
 
@@ -46,7 +56,13 @@ function sticky_widget_area_filter_output($output) {
 
   // Parse DOM
   $doc = new DOMDocument();
-  @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $output );
+  $doc->loadHTML('<?xml encoding="UTF-8">' . $output);
+
+  // dirty fix
+  foreach ($doc->childNodes as $item)
+    if ($item->nodeType == XML_PI_NODE)
+        $doc->removeChild($item); // remove hack
+  $doc->encoding = 'UTF-8'; // insert proper
 
   $doc_xpath = new DOMXpath($doc);
   $elements = $doc_xpath->query('//*[@data-sticky-widget-area-entry]');
@@ -83,8 +99,6 @@ function sticky_widget_area_filter_output($output) {
       $content_element = $previous_element;
 
       $sidebar_element->setAttribute('data-sticky-widget-area-role', 'sidebar');
-      $sidebar_element->setAttribute('data-sticky-widget-area-options', urlencode(json_encode($options)));
-
       $content_element->setAttribute('data-sticky-widget-area-role', 'content');
 
       // Create inner element
