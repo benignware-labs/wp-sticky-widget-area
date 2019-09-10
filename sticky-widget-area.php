@@ -4,7 +4,7 @@
  Plugin Name: Sticky Widget Area
  Plugin URI: http://github.com/benignware/wp-sticky-widget-area
  Description: Make widget-areas sticky
- Version: 0.0.9
+ Version: 0.0.11
  Author: Rafael Nowrotek, Benignware
  Author URI: http://benignware.com
  License: MIT
@@ -27,16 +27,29 @@ function wp_sticky_widget_area_is_admin() {
 
 // Enqueue plugin scripts
 add_action('wp_enqueue_scripts', function() {
+  $options = get_sticky_widget_area_options();
+
   wp_register_script( 'sticky-widget-area-js', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
   wp_localize_script( 'sticky-widget-area-js', 'StickyWidgetArea',
     array(
-      'options' => json_encode(get_sticky_widget_area_options()),
+      'options' => json_encode($options),
     )
   );
 
   wp_enqueue_script( 'sticky-widget-area-js' );
-  // wp_enqueue_script( 'sticky-widget-area-js', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.js' );
-  wp_enqueue_style( 'sticky-widget-area-style', plugin_dir_url( __FILE__ ) . 'dist/sticky-widget-area.css' );
+
+  wp_register_style( 'sticky-widget-area-style', false );
+  wp_enqueue_style( 'sticky-widget-area-style' );
+
+  $css_file = dirname(__FILE__) . '/dist/sticky-widget-area.css';
+  $css = file_get_contents($css_file);
+  $minWidth = $options['minWidth'];
+
+  if ($css && $minWidth) {
+    $css = '@media screen and (min-width: ' . $minWidth . 'px) { ' . $css . ' }';
+
+    wp_add_inline_style('sticky-widget-area-style', $css );
+  }
 });
 
 add_action( 'get_sidebar', function($widget_id = null) {

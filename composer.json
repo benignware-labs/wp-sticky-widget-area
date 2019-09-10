@@ -1,6 +1,6 @@
 {
   "name": "benignware/wp-sticky-widget-area",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "type": "wordpress-plugin",
   "license": "MIT",
   "description": "Make widget-areas sticky",
