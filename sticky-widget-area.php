@@ -69,7 +69,7 @@ function sticky_widget_area_filter_output($output) {
 
   // Parse DOM
   $doc = new DOMDocument();
-  $doc->loadHTML('<?xml encoding="UTF-8">' . $output);
+  @$doc->loadHTML('<?xml encoding="UTF-8">' . $output);
 
   // dirty fix
   foreach ($doc->childNodes as $item)
