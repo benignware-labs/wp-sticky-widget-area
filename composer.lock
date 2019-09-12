@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0095cf741648d94aa9ba54e0ea37f158",
+    "content-hash": "0b69f807aedde27b171f319cb3ba9a1e",
     "packages": [
         {
             "name": "composer/installers",
@@ -218,7 +218,8 @@
                 "url": "https://github.com/WPTRT/theme-unit-test.git",
                 "reference": "master"
             },
-            "type": "library"
+            "type": "library",
+            "time": "2019-07-28T06:16:31+00:00"
         }
     ],
     "aliases": [],
